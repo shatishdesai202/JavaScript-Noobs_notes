@@ -10,4 +10,4 @@ Features
 --> See Current Time On Nabar
 --> Attractive Web Page
 
-OR Most Important Without Reload Page Work All The Feature
+OR Most Important all the features working without reloading page
