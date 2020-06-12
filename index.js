@@ -1,7 +1,6 @@
 let jtime = document.getElementById('time')
 let settime = new Date()
 jtime.innerText = settime
-console.log(jtime)
 let jsaddbtn = document.getElementById('addBtn')
 show()
 
@@ -9,6 +8,7 @@ show()
 jsaddbtn.addEventListener('click', function(){
         
     let jsaddText = document.getElementById('addText')
+    let jsaddTitle = document.getElementById('addTitle')
     let getnotes = localStorage.getItem('note')
 
     if(getnotes == null){
@@ -16,8 +16,11 @@ jsaddbtn.addEventListener('click', function(){
     }else{
         jsobj = JSON.parse(getnotes)
     }
-    
-    jsobj.push(jsaddText.value)
+    jslit = {
+        title : jsaddTitle.value,
+        descr : jsaddText.value 
+    }
+    jsobj.push(jslit)
     localStorage.setItem('note',JSON.stringify(jsobj))
     jsaddText.value = ""
     show()
@@ -39,8 +42,8 @@ function show(){
 
         html+= `<div class="card mx-2 my-2 searching" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">${index}</h5>
-                        <p class="card-text">${element}</p>
+                        <h5 class="card-title">${element.title}</h5>
+                        <p class="card-text">${element.descr}</p>
                         <button id=${index}  onClick="deleteNote(this.id)" class="btn btn-primary"> Delete Notes</button>
                     </div>
                 </div>`
@@ -68,8 +71,8 @@ search.addEventListener('input', function(){
     let findtag = document.getElementsByClassName('searching')
 
     Array.from(findtag).forEach(function(element){
-            let word = element.getElementsByTagName('p')[0].innerText
-    
+            let word = element.getElementsByTagName('h5')[0].innerText
+            
             if(word.includes(val)){
                 element.style.display ="block"
             }else{
